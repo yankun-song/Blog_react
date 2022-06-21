@@ -7,11 +7,13 @@ class TodoItem extends Component {
   }
 
   render() {
-    return <div onClick={this.handleClick}>{this.props.item}</div>;
+    const { item } = this.props;
+    return <li onClick={this.handleClick}>{item}</li>;
   }
 
   handleClick() {
-    this.props.handleDelteItem(this.props.idx);
+    const { handleDelteItem, idx } = this.props;
+    handleDelteItem(idx);
   }
 }
 
