@@ -22,33 +22,46 @@ class TodoList extends Component {
           ></input>
           <button onClick={this.handleBtnClick}>Submit</button>
         </div>
-        <ul>
-          {this.state.todos.map((item, idx) => (
-            <TodoItem
-              key={idx}
-              idx={idx}
-              item={item}
-              handleDelteItem={this.handleDelteItem}
-            />
-          ))}
-        </ul>
+        {/* save the ul element for future use */}
+        <ul ref={(ul) => (this.ul = ul)}>{this.getTodoItems()}</ul>
       </Fragment>
     );
   }
 
-  handleInputChange(e) {
-    this.setState({ inputVal: e.target.value });
+  getTodoItems() {
+    return this.state.todos.map((item, idx) => (
+      <TodoItem
+        key={idx}
+        idx={idx}
+        item={item}
+        handleDelteItem={this.handleDelteItem}
+      />
+    ));
   }
 
+  handleInputChange(e) {
+    this.setState(() => ({ inputVal: e.target.value }));
+  }
+
+  // do something after the async setState
   handleBtnClick() {
-    const newList = [...this.state.todos, this.state.inputVal];
-    this.setState({ todos: newList, inputVal: "" });
+    this.setState(
+      (prev) => ({
+        todos: [...prev.todos, prev.inputVal],
+        inputVal: "",
+      }),
+      () => {
+        console.log(this.ul.querySelectorAll("li").length);
+      }
+    );
   }
 
   handleDelteItem(idx) {
-    const newList = [...this.state.todos];
-    newList.splice(idx, 1);
-    this.setState({ ...this.state, todos: newList });
+    this.setState((prev) => {
+      const todos = [...prev.todos];
+      todos.splice(idx, 1);
+      return { todos };
+    });
   }
 }
 
