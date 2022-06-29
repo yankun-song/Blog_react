@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from "react";
 import TodoItem from "./TodoItem";
+// import axios from "axios";
 
 class TodoList extends Component {
   constructor(props) {
     super(props);
-    this.state = { inputVal: "", todos: ["todo1", "todo2"] };
+    this.state = { inputVal: "", todos: [] };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleBtnClick = this.handleBtnClick.bind(this);
     this.handleDelteItem = this.handleDelteItem.bind(this);
@@ -26,6 +27,18 @@ class TodoList extends Component {
         <ul ref={(ul) => (this.ul = ul)}>{this.getTodoItems()}</ul>
       </Fragment>
     );
+  }
+
+  componentDidMount() {
+    // axios
+    //   .get("/api/todolist")
+    //   .then((res) => {
+    //     this.setState(() => ({ todos: [...res.data] }));
+    //     alert("success");
+    //   })
+    //   .catch(() => {
+    //     alert("error");
+    //   });
   }
 
   getTodoItems() {

@@ -5,8 +5,14 @@ class TodoItem extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
   }
+  
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.item === this.props.item) return false;
+    return true;
+  }
 
   render() {
+    // console.log("child render");
     const { item } = this.props;
     return <li onClick={this.handleClick}>{item}</li>;
   }
