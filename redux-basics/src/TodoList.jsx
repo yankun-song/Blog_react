@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Input, Button, Divider, List } from "antd";
 import store from "./store/index";
-import * as actions from "./store/actionTypes";
+import * as actions from "./store/actionCreators";
 
 class TodoList extends Component {
   constructor(props) {
@@ -52,20 +52,17 @@ class TodoList extends Component {
   }
 
   handleInputChange(e) {
-    const action = {
-      type: actions.CHANGE_INPUT_VALUE,
-      payload: e.target.value,
-    };
+    const action = actions.changeInputAction(e.target.value);
     store.dispatch(action);
   }
 
   handleBtnClick() {
-    const action = { type: actions.ADD_TODO };
+    const action = actions.btnClickAction();
     store.dispatch(action);
   }
 
   handleItemClick(idx) {
-    const action = { type: actions.DELETE_ITEM, payload: idx };
+    const action = actions.deleteItemAction(idx);
     store.dispatch(action);
   }
 }
