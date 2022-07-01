@@ -12,6 +12,11 @@ const defaultState = {
 };
 
 const todoReducer = (state = defaultState, action) => {
+  if (action.type === actions.INIT_LIST) {
+    const newState = JSON.parse(JSON.stringify(state));
+    newState.todos = action.payload;
+    return newState;
+  }
   if (action.type === actions.CHANGE_INPUT_VALUE) {
     const newState = JSON.parse(JSON.stringify(state));
     newState.inputVal = action.payload;

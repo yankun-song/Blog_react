@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Input, Button, Divider, List } from "antd";
 import store from "./store/index";
 import * as actions from "./store/actionCreators";
+import TodoListUI from "./TodoListUI";
 
 class TodoList extends Component {
   constructor(props) {
@@ -16,35 +16,18 @@ class TodoList extends Component {
   }
   render() {
     return (
-      <>
-        <div style={{ marginTop: "10px", marginLeft: "10px" }}>
-          <Input
-            value={this.state.inputVal}
-            placeholder="todo name"
-            style={{ width: "300px" }}
-            onChange={this.handleInputChange}
-          />
-          <Button onClick={this.handleBtnClick}>Add</Button>
-          <Divider orientation="left"></Divider>
-          <List
-            style={{ marginTop: "10px", width: "300px" }}
-            size="large"
-            bordered
-            dataSource={this.state.todos}
-            renderItem={(item, index) => (
-              <List.Item
-                onClick={() => {
-                  console.log("clicked");
-                  this.handleItemClick(index);
-                }}
-              >
-                {item}
-              </List.Item>
-            )}
-          />
-        </div>
-      </>
+      <TodoListUI
+        inputVal={this.state.inputVal}
+        todos={this.state.todos}
+        handleInputChange={this.handleInputChange}
+        handleBtnClick={this.handleBtnClick}
+        handleItemClick={(idx) => this.handleItemClick(idx)}
+      />
     );
+  }
+  componentDidMount() {
+    const action = actions.getTodoList();
+    store.dispatch(action);
   }
 
   handleStoreChange() {
