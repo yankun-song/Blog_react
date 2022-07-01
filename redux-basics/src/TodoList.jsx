@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import store from "./store/index";
 import * as actions from "./store/actionCreators";
 import TodoListUI from "./TodoListUI";
+//import axios from "axios";
 
 class TodoList extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class TodoList extends Component {
     );
   }
   componentDidMount() {
-    const action = actions.getTodoList();
+    const action = actions.getInitList();
     store.dispatch(action);
   }
 
